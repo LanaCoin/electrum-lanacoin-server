@@ -1,7 +1,7 @@
 IRC is used by Electrum server to find 'peers' - other Electrum servers. The
 current list can be seen by running:
 
-    electrum-tajcoin-server peers
+    electrum-lanacoin-server peers
 
 The following config file options are used by the IRC part of Electrum server:
 
@@ -14,7 +14,7 @@ The following config file options are used by the IRC part of Electrum server:
 
 `irc` is used to determine whether the IRC thread will be started or the 
 Electrum server will run in private mode (default). In private mode, 
-`electrum-tajcoin-server peers` will always return an empty list.
+`electrum-lanacoin-server peers` will always return an empty list.
 
 `host` is a fully-qualified domain name (FQDN) of your Electrum server. It is
 used both when binding the listener for incoming client connections and as part
@@ -31,7 +31,7 @@ where you might want to bind to a high port locally but DNAT a different possibl
 port for inbound connections
 
 `irc_nick` is a nick name that will be appended to the EL_ suffix when 
-composing the IRC nickname to identify your server on #electrum-tajcoin.
+composing the IRC nickname to identify your server on #electrum-lanacoin.
 
 Please note the IRC name field can only contain 50 chars and will be composed
 of `host` + protocol version number + Port numbers for the various protocols.

@@ -28,14 +28,14 @@ import imp
 
 
 if os.path.dirname(os.path.realpath(__file__)) == os.getcwd():
-    imp.load_module('electrumtajcoinserver', *imp.find_module('src'))
+    imp.load_module('electrumlanacoinserver', *imp.find_module('src'))
 
-from electrumtajcoinserver import storage, networks, utils
-from electrumtajcoinserver.processor import Dispatcher, print_log
-from electrumtajcoinserver.server_processor import ServerProcessor
-from electrumtajcoinserver.blockchain_processor import BlockchainProcessor
-from electrumtajcoinserver.stratum_tcp import TcpServer
-from electrumtajcoinserver.stratum_http import HttpServer
+from electrumlanacoinserver import storage, networks, utils
+from electrumlanacoinserver.processor import Dispatcher, print_log
+from electrumlanacoinserver.server_processor import ServerProcessor
+from electrumlanacoinserver.blockchain_processor import BlockchainProcessor
+from electrumlanacoinserver.stratum_tcp import TcpServer
+from electrumlanacoinserver.stratum_http import HttpServer
 
 
 logging.basicConfig()
@@ -80,8 +80,8 @@ def create_config(filename=None):
     config = ConfigParser.ConfigParser()
     # set some defaults, which will be overwritten by the config file
     config.add_section('server')
-    config.set('server', 'banner', 'Welcome to tajcoin Electrum!')
-    config.set('server', 'banner_file', '/etc/electrum-tajcoin.banner')
+    config.set('server', 'banner', 'Welcome to lanacoin Electrum!')
+    config.set('server', 'banner_file', '/etc/electrum-lanacoin.banner')
     config.set('server', 'host', 'localhost')
     config.set('server', 'electrum_rpc_port', '8002')
     config.set('server', 'report_host', '')
@@ -98,13 +98,13 @@ def create_config(filename=None):
 	
     config.set('server', 'irc', 'no')
     config.set('server', 'irc_nick', '')
-    config.set('server', 'coin', 'tajcoin')
-    config.set('server', 'logfile', '/var/log/electrum-tajcoin.log')
+    config.set('server', 'coin', 'lanacoin')
+    config.set('server', 'logfile', '/var/log/electrum-lanacoin.log')
     config.set('server', 'donation_address', '')
     config.set('server', 'max_subscriptions', '10000')
 
     config.add_section('leveldb')
-    config.set('leveldb', 'path', '/dev/shm/electrum-tajcoin_db')
+    config.set('leveldb', 'path', '/dev/shm/electrum-lanacoin_db')
     config.set('leveldb', 'pruning_limit', '100')
     config.set('leveldb', 'utxo_cache', str(64*1024*1024))
     config.set('leveldb', 'hist_cache', str(128*1024*1024))
@@ -113,12 +113,12 @@ def create_config(filename=None):
 
     # set network parameters
     config.add_section('network')
-    config.set('network', 'type', 'tajcoin_main')
+    config.set('network', 'type', 'lanacoin_main')
 
     # try to find the config file in the default paths
     if not filename:
         for path in ('/etc/', ''):
-            filename = path + 'electrum-tajcoin.conf'
+            filename = path + 'electrum-lanacoin.conf'
             if os.path.isfile(filename):
                 break
 

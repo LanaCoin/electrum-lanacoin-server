@@ -12,7 +12,7 @@ requirements.
 
 The most up-to date version of this document is available at:
 
-    https://github.com/tajcoin/electrum-tajcoin-server/blob/master/HOWTO.md
+    https://github.com/lanacoin/electrum-lanacoin-server/blob/master/HOWTO.md
 
 Conventions
 -----------
@@ -20,8 +20,8 @@ Conventions
 In this document, lines starting with a hash sign (#) or a dollar sign ($)
 contain commands. Commands starting with a hash should be run as root,
 commands starting with a dollar should be run as a normal user (in this
-document, we assume that user is called 'tajcoin'). We also assume the
-tajcoin user has sudo rights, so we use '$ sudo command' when we need to.
+document, we assume that user is called 'lanacoin'). We also assume the
+lanacoin user has sudo rights, so we use '$ sudo command' when we need to.
 
 Strings that are surrounded by "lower than" and "greater than" ( < and > )
 should be replaced by the user with something appropriate. For example,
@@ -54,9 +54,9 @@ Python libraries. Python 2.7 is the minimum supported version.
 
 **Hardware.** The lightest setup is a pruning server with diskspace 
 requirements of about 4 GB for the electrum database. However note that 
-you also need to run tajcoind and keep a copy of the full blockchain, 
+you also need to run lanacoind and keep a copy of the full blockchain, 
 which is roughly 4 GB in July 2015. If you have less than 2 GB of RAM 
-make sure you limit tajcoind to 8 concurrent connections. If you have more 
+make sure you limit lanacoind to 8 concurrent connections. If you have more 
 resources to spare you can run the server with a higher limit of historic
 transactions per address. CPU speed is important for the initial block
 chain import, but is also important if you plan to run a public Electrum server, 
@@ -67,50 +67,50 @@ has enough RAM to hold and process the leveldb database in tmpfs (e.g. /dev/shm)
 Instructions
 ------------
 
-### Step 1. Create a user for running tajcoind and Electrum server
+### Step 1. Create a user for running lanacoind and Electrum server
 
 This step is optional, but for better security and resource separation I
-suggest you create a separate user just for running `tajcoind` and Electrum.
+suggest you create a separate user just for running `lanacoind` and Electrum.
 We will also use the `~/bin` directory to keep locally installed files
 (others might want to use `/usr/local/bin` instead). We will download source
 code files to the `~/src` directory.
 
-    $ sudo adduser tajcoin --disabled-password
+    $ sudo adduser lanacoin --disabled-password
     $ sudo apt-get install git
-    $ sudo su - tajcoin
+    $ sudo su - lanacoin
     $ mkdir ~/bin ~/src
     $ echo $PATH
 
-If you don't see `/home/tajcoin/bin` in the output, you should add this line
+If you don't see `/home/lanacoin/bin` in the output, you should add this line
 to your `.bashrc`, `.profile`, or `.bash_profile`, then logout and relogin:
 
     PATH="$HOME/bin:$PATH"
     $ exit
 
-### Step 2. Download tajcoind
+### Step 2. Download lanacoind
 
-We currently recommend tajcoind 0.10.2.2 stable.
+We currently recommend lanacoind 0.10.2.2 stable.
 
-If you prefer to compile tajcoind, here are some pointers for Ubuntu:
+If you prefer to compile lanacoind, here are some pointers for Ubuntu:
 
     $ sudo apt-get install make g++ python-leveldb git build-essential libboost-all-dev libdb++-dev libminiupnpc-dev libcurl4-openssl-dev
-    $ sudo su - tajcoin
-    $ cd ~/src && git clone https://github.com/tajcoin-project/tajcoin.git
-    $ cd tajcoin/src
+    $ sudo su - lanacoin
+    $ cd ~/src && git clone https://github.com/lanacoin-project/lanacoin.git
+    $ cd lanacoin/src
     $ make -f makefile.unix
-    $ strip tajcoind
-    $ cp -a tajcoind ~/bin
+    $ strip lanacoind
+    $ cp -a lanacoind ~/bin
 
-### Step 3. Configure and start tajcoind
+### Step 3. Configure and start lanacoind
 
-In order to allow Electrum to "talk" to `tajcoind`, we need to set up an RPC
-username and password for `tajcoind`. We will then start `tajcoind` and
+In order to allow Electrum to "talk" to `lanacoind`, we need to set up an RPC
+username and password for `lanacoind`. We will then start `lanacoind` and
 wait for it to complete downloading the blockchain.
 
-    $ mkdir ~/.tajcoin
-    $ $EDITOR ~/.tajcoin/tajcoin.conf
+    $ mkdir ~/.lanacoin
+    $ $EDITOR ~/.lanacoin/lanacoin.conf
 
-Write this in `tajcoin.conf`:
+Write this in `lanacoin.conf`:
 
     rpcuser=<rpc-username>
     rpcpassword=<rpc-password>
@@ -119,24 +119,24 @@ Write this in `tajcoin.conf`:
     disablewallet=1
 
 
-If you have an existing installation of tajcoind and have not previously
+If you have an existing installation of lanacoind and have not previously
 set txindex=1 you need to reindex the blockchain by running
 
-    $ tajcoind -reindex
+    $ lanacoind -reindex
 
-If you already have a freshly indexed copy of the blockchain with txindex start `tajcoind`:
+If you already have a freshly indexed copy of the blockchain with txindex start `lanacoind`:
 
-    $ tajcoind
+    $ lanacoind
 
-Allow some time to pass, so `tajcoind` connects to the network and starts
+Allow some time to pass, so `lanacoind` connects to the network and starts
 downloading blocks. You can check its progress by running:
 
-    $ tajcoind getinfo
+    $ lanacoind getinfo
 
-Before starting the electrum server your tajcoind should have processed all
+Before starting the electrum server your lanacoind should have processed all
 blocks and caught up to the current height of the network (not just the headers).
-You should also set up your system to automatically start tajcoind at boot
-time, running as the 'tajcoin' user. Check your system documentation to
+You should also set up your system to automatically start lanacoind at boot
+time, running as the 'lanacoin' user. Check your system documentation to
 find out the best way to do this.
 
 ### Step 4. Download and install Electrum Server
@@ -144,8 +144,8 @@ find out the best way to do this.
 We will download the latest git snapshot for Electrum to configure and install it:
 
     $ cd ~
-    $ git clone https://github.com/tajcoin/electrum-tajcoin-server.git
-    $ cd electrum-tajcoin-server
+    $ git clone https://github.com/lanacoin/electrum-lanacoin-server.git
+    $ cd electrum-lanacoin-server
     $ sudo ./configure
     $ sudo python setup.py install
 
@@ -193,7 +193,7 @@ The "configure" script above will offer you to download a database with pruning 
 
 You can fetch recent copies of electrum leveldb databases with differnt pruning limits 
 and further instructions from the Electrum-CREDIT full archival server foundry at:
-http://electrum1.tajcoin.org/leveldb-dump/
+http://electrum1.lanacoin.org/leveldb-dump/
 
 
 Alternatively, if you have the time and nerve, you can import the blockchain yourself.
@@ -261,11 +261,11 @@ in case you need to restore it.
 
 ### Step 9. Configure Electrum server
 
-Electrum reads a config file (/etc/electrum-tajcoin.conf) when starting up. This
-file includes the database setup, tajcoind RPC setup, and a few other
+Electrum reads a config file (/etc/electrum-lanacoin.conf) when starting up. This
+file includes the database setup, lanacoind RPC setup, and a few other
 options.
 
-The "configure" script listed above will create a config file at /etc/electrum-tajcoin.conf
+The "configure" script listed above will create a config file at /etc/electrum-lanacoin.conf
 which you can edit to modify the settings.
 
 Go through the config options and set them to your liking.
@@ -277,12 +277,12 @@ Electrum server currently needs quite a few file handles to use leveldb. It also
 file handles for each connection made to the server. It's good practice to increase the
 open files limit to 64k. 
 
-The "configure" script will take care of this and ask you to create a user for running electrum-tajcoin-server.
-If you're using user tajcoin to run electrum and have added it manually like shown in this HOWTO run 
+The "configure" script will take care of this and ask you to create a user for running electrum-lanacoin-server.
+If you're using user lanacoin to run electrum and have added it manually like shown in this HOWTO run 
 the following code to add the limits to your /etc/security/limits.conf:
 
-     echo "tajcoin hard nofile 65536" >> /etc/security/limits.conf
-     echo "tajcoin soft nofile 65536" >> /etc/security/limits.conf
+     echo "lanacoin hard nofile 65536" >> /etc/security/limits.conf
+     echo "lanacoin soft nofile 65536" >> /etc/security/limits.conf
 
 If you are on Debian > 8.0 Jessie or other distribution based on it, you also need to add these lines in /etc/pam.d/common-session and /etc/pam.d/common-session-noninteractive otherwise the limits in /etc/security/limits.conf will not work:
 
@@ -291,28 +291,28 @@ If you are on Debian > 8.0 Jessie or other distribution based on it, you also ne
     
 Check if the limits are changed either by logging with the user configured to run Electrum server as. Example:
 
-    su - tajcoin
+    su - lanacoin
     ulimit -n
 
 Or if you use sudo and the user is added to sudoers group:
 
-    sudo -u tajcoin -i ulimit -n
+    sudo -u lanacoin -i ulimit -n
 
 
 Two more things for you to consider:
 
-1. To increase security you may want to close tajcoind for incoming connections and connect outbound only
+1. To increase security you may want to close lanacoind for incoming connections and connect outbound only
 
-2. Consider restarting tajcoind (together with electrum-tajcoin-server) on a weekly basis to clear out unconfirmed
+2. Consider restarting lanacoind (together with electrum-lanacoin-server) on a weekly basis to clear out unconfirmed
    transactions from the local the memory pool which did not propagate over the network.
 
 ### Step 11. (Finally!) Run Electrum server
 
 The magic moment has come: you can now start your Electrum server as root (it will su to your unprivileged user):
 
-    # electrum-tajcoin-server start
+    # electrum-lanacoin-server start
 
-Note: If you want to run the server without installing it on your system, just run 'run_electrum_tajcoin_server" as the
+Note: If you want to run the server without installing it on your system, just run 'run_electrum_lanacoin_server" as the
 unprivileged user.
 
 You should see this in the log file:
@@ -321,15 +321,15 @@ You should see this in the log file:
 
 If you want to stop Electrum server, use the 'stop' command:
 
-    # electrum-tajcoin-server stop
+    # electrum-lanacoin-server stop
 
 
-If your system supports it, you may add electrum-tajcoin-server to the /etc/init.d directory. 
+If your system supports it, you may add electrum-lanacoin-server to the /etc/init.d directory. 
 This will ensure that the server is started and stopped automatically, and that the database is closed 
 safely whenever your machine is rebooted.
 
-    # ln -s `which electrum-tajcoin-server` /etc/init.d/electrum-tajcoin-server
-    # update-rc.d electrum-tajcoin-server defaults
+    # ln -s `which electrum-lanacoin-server` /etc/init.d/electrum-lanacoin-server
+    # update-rc.d electrum-lanacoin-server defaults
 
 ### Step 12. Test the Electrum server
 
@@ -342,16 +342,16 @@ or hostname and the port. Press 'Ok' and the client will disconnect from the
 current server and connect to your new Electrum server. You should see your
 addresses and transactions history. You can see the number of blocks and
 response time in the Server selection window. You should send/receive some
-tajcoins to confirm that everything is working properly.
+lanacoins to confirm that everything is working properly.
 
 ### Step 13. Join us on IRC, subscribe to the server thread
 
 Say hi to the dev crew, other server operators, and fans on
-irc.freenode.net #electrum-tajcoin and we'll try to congratulate you
+irc.freenode.net #electrum-lanacoin and we'll try to congratulate you
 on supporting the community by running an Electrum-CREDIT node.
 
 If you're operating a public Electrum-CREDIT server please subscribe
 to the following mailing list:
-https://groups.google.com/forum/#!forum/electrum-tajcoin-server
+https://groups.google.com/forum/#!forum/electrum-lanacoin-server
 It'll contain announcements about important updates to Electrum-CREDIT
 server required for a smooth user experience.

@@ -1,14 +1,14 @@
 # Main network and testnet3 definitions
 
 params = {
-    'tajcoin_main': {
-        'pubkey_address': 65,
+    'lanacoin_main': {
+        'pubkey_address': 48,
         'script_address': 5,
-        'genesis_hash': '00000b414afcc2b242531999ae4cc5e7279eaa1508aa72cb289cc175ebb1db2b'
+        'genesis_hash': '0000095667f3c1fdbf0b9b4937be57c6401162fcfe72be373df27393f0c69d93'
     },
-    'tajcoin_test': {
+    'lanacoin_test': {
         'pubkey_address': 111,
         'script_address': 196,
-        'genesis_hash': '0x00f8aa29160c44e912a3c45d05dfba13031c9b6e667b7368f788e23afd88db78'
+        'genesis_hash': '00005f78276904fdf0cbd61b10b5330e915362c2457173d443ad46e08fa621ef'
     }
 }

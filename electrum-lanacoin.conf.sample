@@ -12,12 +12,12 @@ stratum_tcp_port = 5050
 #report_stratum_tcp_ssl_port = 50002
 password = secret
 banner = Welcome to Electrum!
-banner_file = /etc/electrum-tajcoin.banner
+banner_file = /etc/electrum-lanacoin.banner
 irc = yes
-irc_nick = tajcoin
-#ssl_certfile = /path/to/electrum-tajcoin-server.crt
-#ssl_keyfile = /path/to/electrum-tajcoin-server.key
-logfile = /var/log/electrum-tajcoin.log
+irc_nick = lanacoin
+#ssl_certfile = /path/to/electrum-lanacoin-server.crt
+#ssl_keyfile = /path/to/electrum-lanacoin-server.key
+logfile = /var/log/electrum-lanacoin.log
 donation_address =
 
 # default backend is leveldb (pruning server)
@@ -29,9 +29,9 @@ path =
 # for each address, history will be pruned if it is longer than this limit
 pruning_limit = 1000
 
-[tajcoind]
-tajcoind_host = localhost
-tajcoind_port = 3791
-# user and password from tajcoin.conf
-tajcoind_user =
-tajcoind_password =
+[lanacoind]
+lanacoind_host = localhost
+lanacoind_port = 5706
+# user and password from lanacoin.conf
+lanacoind_user =
+lanacoind_password =

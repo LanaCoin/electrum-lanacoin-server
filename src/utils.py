@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Electrum - lightweight tajcoin client
+# Electrum - lightweight lanacoin client
 # Copyright (C) 2011 thomasv@gitorious
 #
 # This program is free software: you can redistribute it and/or modify
@@ -20,14 +20,13 @@ import threading
 import time
 import hashlib
 import sys
-from pyblake2 import blake2s
 
 __b58chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
 __b58base = len(__b58chars)
 
 global PUBKEY_ADDRESS
 global SCRIPT_ADDRESS
-PUBKEY_ADDRESS = 65
+PUBKEY_ADDRESS = 48
 SCRIPT_ADDRESS = 5
 
 def rev_hex(s):
@@ -52,9 +51,6 @@ def var_int(i):
 
 
 Hash = lambda x: hashlib.sha256(hashlib.sha256(x).digest()).digest()
-
-HashBlake2s = lambda x: blake2s(x).digest()
-
 
 hash_encode = lambda x: x[::-1].encode('hex')
 
@@ -160,7 +156,7 @@ def b58encode(v):
         long_value = div
     result = __b58chars[long_value] + result
 
-    # tajcoin does a little leading-zero-compression:
+    # lanacoin does a little leading-zero-compression:
     # leading 0-bytes in the input become leading-1s
     nPad = 0
     for c in v:

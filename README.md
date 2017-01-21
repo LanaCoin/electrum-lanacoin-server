@@ -9,14 +9,14 @@ Features
 
   * The server indexes UTXOs by address, in a Patricia tree structure
     described by Alan Reiner (see the 'ultimate blockchain
-    compression' thread in the tajcointalk forum)
+    compression' thread in the lanacointalk forum)
 
-  * The server requires tajcoind, leveldb and plyvel
+  * The server requires lanacoind, leveldb and plyvel
 
   * The server code is open source. Anyone can run a server, removing
     single points of failure concerns.
 
-  * The server knows which set of tajcoin addresses belong to the same
+  * The server knows which set of lanacoin addresses belong to the same
     wallet, which might raise concerns about anonymity. However, it
     should be possible to write clients capable of using several
     servers.
@@ -34,7 +34,7 @@ Installation
   1. To install and run a server, see INSTALL. For greater
      detail on the installation process, see HOWTO.md.
 
-  2. To start and stop the server, use the 'electrum-tajcoin-server' script
+  2. To start and stop the server, use the 'electrum-lanacoin-server' script
 
 
 

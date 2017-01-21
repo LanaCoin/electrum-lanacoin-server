@@ -8,7 +8,7 @@ from processor import print_log, logger
 from utils import bc_address_to_hash_160, hash_160_to_pubkey_address, hex_to_int, int_to_hex, Hash
 
 global GENESIS_HASH
-GENESIS_HASH = '00000b414afcc2b242531999ae4cc5e7279eaa1508aa72cb289cc175ebb1db2b'
+GENESIS_HASH = '0000095667f3c1fdbf0b9b4937be57c6401162fcfe72be373df27393f0c69d93'
 
 """
 Patricia tree for hashing unspents
@@ -66,7 +66,7 @@ class Storage(object):
         print_log("UTXO tree root hash:", self.root_hash.encode('hex'))
         print_log("Coins in database:", v)
 
-    # convert between tajcoin addresses and 20 bytes keys used for storage.
+    # convert between lanacoin addresses and 20 bytes keys used for storage.
     def address_to_key(self, addr):
         return bc_address_to_hash_160(addr)
 
@@ -105,7 +105,7 @@ class Storage(object):
     def listunspent(self, addr):
         key = self.address_to_key(addr)
         if key is None:
-            raise BaseException('Invalid tajcoin address', addr)
+            raise BaseException('Invalid lanacoin address', addr)
 
         out = []
         for k, v in self.db_utxo.iterator(start=key):
@@ -161,8 +161,8 @@ class Storage(object):
         return eval(s)
 
 
-    def write_undo_info(self, height, tajcoind_height, undo_info):
-        if height > tajcoind_height - 100 or self.test_reorgs:
+    def write_undo_info(self, height, lanacoind_height, undo_info):
+        if height > lanacoind_height - 100 or self.test_reorgs:
             self.db_undo.put("undo_info_%d" % (height % 100), repr(undo_info))
 
 
